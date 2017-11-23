@@ -1,0 +1,52 @@
+﻿ACTIVIDAD 31 - POSTGRESQL
+
+manoli-# CREATE DATABASE call_list;
+
+manoli=# \c call_list;
+
+You are now connected to database "call_list" as user "manoli".
+
+call_list=# CREATE TABLE users (id integer PRIMARY KEY, first_name varchar(50), email varchar(50));
+
+call_list=# INSERT INTO users (id, first_name, email) values (1, 'Carlos', 'carlos@hola.cl');
+
+call_list=# INSERT INTO users (id, first_name, email) values (2, 'Laura', 'laura@hola.cl');
+
+call_list=# CREATE TABLE calls(id integer PRIMARY KEY, phone varchar(10), date date, user_id integer REFERENCES users(id));
+
+call_list=# ALTER TABLE users ADD COLUMN last_name varchar(30);
+
+call_list=# UPDATE users SET last_name = 'Tapia' WHERE id = 1;
+
+call_list=# UPDATE users SET last_name = 'Tipm' WHERE id = 2;
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (1, '111111', '20/11/2017', 1);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (2, '111111', '20/11/2017', 1);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (3, '111111', '20/11/2017', 1);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (4, '111111', '20/11/2017', 1);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (5, '111111', '20/11/2017', 2);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (6, '111111', '20/11/2017', 2);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (7, '111111', '20/11/2017', 2);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (8, '111111', '20/11/2017', 2);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (9, '111111', '20/11/2017', 2);
+
+call_list=# INSERT INTO calls (id, phone, date, user_id) values (10, '111111', '20/11/2017', 2);
+
+call_list=# INSERT INTO users (id, first_name, email, last_name) values (3, 'Manoli', 'manoli@hola.cl', 'Camacho');
+
+call_list=# SELECT first_name, count(calls) FROM users LEFT JOIN calls ON (users.id = calls.user_id) group by first_name;
+
+call_list=# SELECT * FROM calls WHERE user_id = 1 ORDER BY date DESC;
+
+call_list=# CREATE TABLE audits(id integer PRIMARY KEY, reason varchar(100), user_id integer REFERENCES users(id));
+
+
+
